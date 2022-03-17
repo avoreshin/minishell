@@ -6,29 +6,57 @@
 /*   By: jlamonic <jlamonic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:38:44 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/09 22:38:44 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/17 21:01:34 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishel.h"
-#include "parse_util.h"
+#include "minishell.h"
 
-t_minishell	g_sh;
-
-static	void minishell(void)
+void	parse_input(char *input, t_env *env, char **envp)
 {
-	t_list	*asts;
-
-	g_sh.signal = 0;
+	t_list	*token;
+	
+	token = 0;
+	add_history(input);
+	if (split_token(input, &token) == TRUE && check_token(token) == TRUE)
+	{
+		handle_heredoc(token);
+		parse_pipe_token(token, env, envp);
+		while (waitpid(-1, &g_stat, 0) > 0)
+			continue ;
+	}
+	if (WIFEXITED(g_stat))
+		g_stat = WEXITSTATUS(g_stat);
+	ft_lstclear(&token, free);
 }
 
-
-int	main(int argc, char *argv[], char *envp[])
+int	main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
-	init_minishell(envp);
+	t_set	set;
+	t_env	*env;
+	char	*input;
+	
+	argc = 0;
+	argv = 0;
+	init_set(&set, &env, envp);
+	signal(SIGINT, ft_handler);
 	while (1)
-		minishell();
+	{
+		init_set2(&set, &envp, env);
+		input = readline("$ ");
+		signal(SIGQUIT, ft_handler);
+		if (!input)
+		{
+			reset_set(&set);
+			exit(0);
+		}
+		tcsetattr(STDIN_FILENO, TCSANOW, &set.org_term);
+		parse_input(input, env, envp);
+		input = ft_free(input);
+		reset_stdio(&set);
+		ft_free_split(envp);
+	}
 	return (0);
 }
+
+
