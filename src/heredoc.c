@@ -6,7 +6,7 @@
 /*   By: jlamonic <jlamonic@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 22:21:54 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 22:22:57 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 14:02:08 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*sum(char *line, char buf)
 	int		size;
 	char	*str;
 	int		i;
-	
+
 	size = ft_strlen(line);
 	str = (char *)malloc(sizeof(char) * (size + 2));
 	if (!str)
@@ -34,28 +34,6 @@ char	*sum(char *line, char buf)
 	return (str);
 }
 
-int	get_next_line(char **line)
-{
-	char	buf;
-	int		ret;
-	
-	*line = (char *)malloc(1);
-	if (*line == NULL)
-		return (-1);
-	(*line)[0] = 0;
-	ret = read(0, &buf, 1);
-	while (buf != '\n' && buf != '\0')
-	{
-		*line = sum(*line, buf);
-		if (*line == 0)
-			return (-1);
-		ret = read(0, &buf, 1);
-	}
-	if (buf == '\n')
-		return (1);
-	return (0);
-}
-
 void	print_line(char *line, char *limiter, int fd)
 {
 	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
@@ -70,7 +48,7 @@ int	heredoc(char *limiter)
 	int		fd[2];
 	pid_t	pid;
 	char	*line;
-	
+
 	if (pipe(fd) == -1)
 		return (error_msg("pipe"));
 	pid = fork();
@@ -97,7 +75,7 @@ int	heredoc(char *limiter)
 void	handle_heredoc(t_list *token)
 {
 	int	org_stdin;
-	
+
 	org_stdin = dup(STDIN_FILENO);
 	while (token)
 	{

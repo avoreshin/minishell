@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 char	*find_path(char *cmd, char **env_lst, int i)
 {
 	char	**paths;

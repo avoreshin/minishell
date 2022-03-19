@@ -6,7 +6,7 @@
 /*   By: jlamonic <jlamonic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 18:05:17 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 21:11:50 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 21:37:51 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	g_stat;
 typedef struct s_env
 {
 	char			*key;
-	char			*value;
 	int				print_check;
+	char			*value;
 	struct s_env	*next;
 }	t_env;
 
@@ -53,20 +53,25 @@ typedef struct s_proc
 	t_list	*data;
 	t_list	*cmd;
 	t_list	*limiter;
+	int		status;
+	int		pip_flg;
 	int		infile;
 	int		outfile;
-	int		pip_flg;
-	int		status;
 }t_proc;
 
+/*
+ * errors.c
+*/
+void	cd_error(int err, char *arg);
 
 t_env	*env_dup_check(t_env *env_list, char *new_key);
+char	*sum(char *line, char buf);
+int		get_next_line(char **line);
 int		ft_strcmp(const char *s1, const char *s2);
 void	ft_free_split(char **draw);
-void	env_lstadd_back(t_env **lst, t_env *new,
-char *key, char *value);
+void	env_lstadd_back(t_env **lst, t_env *new, char *key, char *value);
 t_env	*env_set(char **envp);
-void	cd_error(int err, char *arg);
+
 void	ft_cd(char **buf, t_env *env_list);
 void	ft_env(t_env *env_list);
 int		unset_key_syntax_check(char *s);
@@ -135,5 +140,4 @@ char	*expand_in_quot_utils(t_proc *proc, char *data, char **new_data);
 int		ft_env_lstsize(t_env *lst);
 char	**convert_env_lst_to_dp(t_env *env);
 
-#endif
 #endif

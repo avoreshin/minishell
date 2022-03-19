@@ -12,27 +12,27 @@
 
 #include "minishell.h"
 
-char	*sum(char *line, char buf)
-{
-	int		size;
-	char	*str;
-	int		i;
-
-	size = ft_strlen(line);
-	str = (char *)malloc(sizeof(char) * (size + 2));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (line[i] != 0)
-	{
-		str[i] = line[i];
-		i++;
-	}
-	free(line);
-	str[i++] = buf;
-	str[i] = '\0';
-	return (str);
-}
+//char	*sum(char *line, char buf)
+//{
+//	int		size;
+//	char	*str;
+//	int		i;
+//
+//	size = ft_strlen(line);
+//	str = (char *)malloc(sizeof(char) * (size + 2));
+//	if (!str)
+//		return (NULL);
+//	i = 0;
+//	while (line[i] != 0)
+//	{
+//		str[i] = line[i];
+//		i++;
+//	}
+//	free(line);
+//	str[i++] = buf;
+//	str[i] = '\0';
+//	return (str);
+//}
 
 int	get_next_line(char **line)
 {

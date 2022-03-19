@@ -6,7 +6,7 @@
 #    By: jlamonic <jlamonic@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/09 23:00:12 by jlamonic          #+#    #+#              #
-#   Updated: 2022/03/17 22:31:38 by jlamonic         ###   ########.fr       # #
+#   Updated: 2022/03/19 14:07:08 by jlamonic         ###   ########.fr       # #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CPPFLAGS		="-I/Users/$(USER)/.brew/opt/readline/include"
 
 INCS			= -Ilibft -I.
 
-SRCS_DIR		= srcs
+SRCS_DIR		= src
 SRCS_NAME		= minishell.c \
 					builtin_1.c \
 					builtin_2.c \
@@ -29,6 +29,7 @@ SRCS_NAME		= minishell.c \
 					builtin_tools.c \
 					command.c \
 					convert.c \
+					expand.c \
 					expand_utils.c \
 					get_next_line.c \
 					handler.c \

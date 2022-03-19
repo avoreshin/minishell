@@ -6,7 +6,7 @@
 /*   By: jlamonic <jlamonic@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:25:12 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 21:25:16 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:33:35 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	parse_std_inout_redirection(t_proc *proc, t_list *data, char *temp)
 int	parse_data(t_proc *proc, t_list *data)
 {
 	char	*temp;
-	
+
 	while (data)
 	{
 		if (data->content[0] == '<' || data->content[0] == '>')
@@ -82,7 +82,7 @@ int	parse_process(t_proc *proc, t_env *env, char **envp)
 int	parse_last_process(t_proc *proc, t_env *env, char **envp)
 {
 	char	**exe;
-	
+
 	proc->env_lst = env;
 	exe = NULL;
 	if (parse_data(proc, proc->data) == TRUE && proc->cmd)
@@ -109,7 +109,7 @@ int	parse_pipe_token(t_list *token, t_env *env, char **envp)
 {
 	char	*temp;
 	t_proc	proc;
-	
+
 	ft_memset(&proc, 0, sizeof(t_proc));
 	while (token)
 	{

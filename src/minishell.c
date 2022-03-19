@@ -6,7 +6,7 @@
 /*   By: jlamonic <jlamonic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 22:38:44 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 21:01:34 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:35:49 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_input(char *input, t_env *env, char **envp)
 {
 	t_list	*token;
-	
+
 	token = 0;
 	add_history(input);
 	if (split_token(input, &token) == TRUE && check_token(token) == TRUE)
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **envp)
 	t_set	set;
 	t_env	*env;
 	char	*input;
-	
+
 	argc = 0;
 	argv = 0;
 	init_set(&set, &env, envp);
@@ -58,5 +58,3 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (0);
 }
-
-

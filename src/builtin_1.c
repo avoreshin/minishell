@@ -6,29 +6,17 @@
 /*   By: jlamonic <jlamonic@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 21:26:39 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 21:26:42 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:33:35 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cd_error(int err, char *arg)
-{
-	char	*errmsg;
-
-	errmsg = strerror(err);
-	write(2, "bash: cd: ", 10);
-	write(2, arg, ft_strlen(arg));
-	write(2, ": ", 2);
-	write(2, errmsg, ft_strlen(errmsg));
-	write(2, "\n", 1);
-}
-
 void	ft_cd(char **buf, t_env *env_list)
 {
 	int	err;
 	int	temp;
-	
+
 	if (!buf[0])
 	{
 		chdir(read_value_of_key(env_list, "HOME"));
@@ -49,7 +37,7 @@ void	ft_cd(char **buf, t_env *env_list)
 void	ft_env(t_env *env_list)
 {
 	t_env	*one;
-	
+
 	one = env_list;
 	while (one)
 	{

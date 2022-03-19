@@ -6,7 +6,7 @@
 /*   By: jlamonic <jlamonic@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 22:23:21 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 22:24:13 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:37:19 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	check_token(t_list *token)
 	while (token)
 	{
 		if (token->content[0] == '|' && (i == 0
-										 || !token->next || token->next->content[0] == '|'))
+				|| !token->next || token->next->content[0] == '|'))
 			return (error_msg("|"));
 		else if (token->content[0] == '<' || token->content[0] == '>')
 		{
@@ -85,8 +85,8 @@ int	check_token(t_list *token)
 			else if (!token->next)
 				return (error_msg(NULL));
 			else if (token->next->content[0] == '<'
-					 || token->next->content[0] == '>'
-					 || token->next->content[0] == '|')
+				|| token->next->content[0] == '>'
+				|| token->next->content[0] == '|')
 				return (error_msg(token->next->content));
 		}
 		i++;

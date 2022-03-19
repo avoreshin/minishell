@@ -6,7 +6,7 @@
 /*   By: jlamonic <jlamonic@student.21-school.ru>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 22:24:39 by jlamonic          #+#    #+#             */
-/*   Updated: 2022/03/17 22:25:09 by jlamonic         ###   ########.fr       */
+/*   Updated: 2022/03/19 20:37:59 by jlamonic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	*ft_free(char *p)
 void	*ft_free2(char **p)
 {
 	int	i;
-	
+
 	if (!p)
 		return (NULL);
 	i = -1;
@@ -74,7 +74,7 @@ char	*ft_strntrim(char *s, char *set, int n)
 	char	*temp;
 	char	*temp2;
 	int		i;
-	
+
 	temp = (char *)malloc(sizeof(char) * (n + 1));
 	if (!temp)
 		return (NULL);
@@ -91,7 +91,7 @@ char	*ft_strndup(char *s, int n)
 {
 	char	*temp;
 	int		i;
-	
+
 	temp = (char *)malloc(sizeof(char) * (n + 1));
 	if (!temp)
 		return (NULL);
