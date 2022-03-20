@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+void	ft_pwd(void)
+{
+	char	pbuf[4096];
+
+	getcwd(pbuf, 4096);
+	printf("%s\n", pbuf);
+	g_stat = 0;
+}
+
 char	*read_value_of_key(t_env *env_list, char *key)
 {
 	while (env_list)
@@ -40,13 +49,4 @@ int	ft_echo(char **buf)
 		printf("\n");
 	g_stat = 0;
 	return (0);
-}
-
-void	ft_pwd(void)
-{
-	char	pbuf[4096];
-
-	getcwd(pbuf, 4096);
-	printf("%s\n", pbuf);
-	g_stat = 0;
 }
