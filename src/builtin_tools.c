@@ -12,20 +12,6 @@
 
 #include "minishell.h"
 
-t_env	*env_dup_check(t_env *env_list, char *new_key)
-{
-	t_env	*temp;
-
-	temp = env_list;
-	while (temp)
-	{
-		if (!ft_strcmp(temp->key, new_key))
-			return (temp);
-		temp = temp->next;
-	}
-	return (NULL);
-}
-
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	int	i;
@@ -52,19 +38,18 @@ void	ft_free_split(char **draw)
 	free(draw);
 }
 
-void	env_lstadd_back(t_env **lst, t_env *new, char *key, char *value)
+t_env	*env_dup_check(t_env *env_list, char *new_key)
 {
-	t_env	**phead;
+	t_env	*temp;
 
-	new = (t_env *)malloc(sizeof(t_env));
-	new->key = key;
-	new->value = value;
-	new->print_check = 0;
-	phead = lst;
-	while (*phead)
-		phead = &(*phead)->next;
-	new->next = *phead;
-	*phead = new;
+	temp = env_list;
+	while (temp)
+	{
+		if (!ft_strcmp(temp->key, new_key))
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
 }
 
 t_env	*env_set(char	**envp)
@@ -82,4 +67,19 @@ t_env	*env_set(char	**envp)
 		free(splits);
 	}
 	return (env_list);
+}
+
+void	env_lstadd_back(t_env **lst, t_env *new, char *key, char *value)
+{
+	t_env	**phead;
+
+	new = (t_env *)malloc(sizeof(t_env));
+	new->key = key;
+	new->value = value;
+	new->print_check = 0;
+	phead = lst;
+	while (*phead)
+		phead = &(*phead)->next;
+	new->next = *phead;
+	*phead = new;
 }
