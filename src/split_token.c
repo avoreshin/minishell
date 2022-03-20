@@ -14,38 +14,38 @@
 
 int	split_redirection_token(char *input, int i, t_list **token)
 {
-	char	*temp;
-	int		save;
+	char	*tmp;
+	int		sav;
 
-	save = i;
+	sav = i;
 	if (i != 0)
 	{
-		temp = ft_strntrim(input, " ", i);
-		if (!temp)
+		tmp = ft_strntrim(input, " ", i);
+		if (!tmp)
 			return (error_msg("malloc"));
-		ft_lstadd_back(token, ft_lstnew(temp));
+		ft_lstadd_back(token, ft_lstnew(tmp));
 		input = &input[i];
 		i = 0;
 	}
 	while (input[i] == '<' || input[i] == '>')
 		i++;
-	temp = ft_strntrim(input, " ", i);
-	if (!temp)
+	tmp = ft_strntrim(input, " ", i);
+	if (!tmp)
 		return (error_msg("malloc"));
-	ft_lstadd_back(token, ft_lstnew(temp));
-	return (i + save);
+	ft_lstadd_back(token, ft_lstnew(tmp));
+	return (i + sav);
 }
 
 int	split_space_token(char *input, int i, t_list **token)
 {
-	char	*temp;
+	char	*tmp;
 
 	if (i != 0)
 	{
-		temp = ft_strntrim(input, " ", i);
-		if (!temp)
+		tmp = ft_strntrim(input, " ", i);
+		if (!tmp)
 			return (error_msg("malloc"));
-		ft_lstadd_back(token, ft_lstnew(temp));
+		ft_lstadd_back(token, ft_lstnew(tmp));
 	}
 	while (input[i] == ' ')
 		i++;
@@ -54,32 +54,32 @@ int	split_space_token(char *input, int i, t_list **token)
 
 int	split_pipe_token(char *input, int i, t_list **token)
 {
-	char	*temp;
+	char	*tmp;
 
 	if (i != 0)
 	{
-		temp = ft_strntrim(input, " ", i);
-		if (!temp)
+		tmp = ft_strntrim(input, " ", i);
+		if (!tmp)
 			return (error_msg("malloc"));
-		ft_lstadd_back(token, ft_lstnew(temp));
+		ft_lstadd_back(token, ft_lstnew(tmp));
 	}
-	temp = ft_strdup("|");
-	if (!temp)
+	tmp = ft_strdup("|");
+	if (!tmp)
 		return (error_msg("malloc"));
-	ft_lstadd_back(token, ft_lstnew(temp));
+	ft_lstadd_back(token, ft_lstnew(tmp));
 	return (i + 1);
 }
 
 int	split_rest_token(char *input, t_list **token)
 {
-	char	*temp;
+	char	*tmp;
 
 	if (input[0])
 	{
-		temp = ft_strntrim(input, " ", ft_strlen(input));
-		if (!temp)
+		tmp = ft_strntrim(input, " ", ft_strlen(input));
+		if (!tmp)
 			return (error_msg("malloc"));
-		ft_lstadd_back(token, ft_lstnew(temp));
+		ft_lstadd_back(token, ft_lstnew(tmp));
 	}
 	return (TRUE);
 }

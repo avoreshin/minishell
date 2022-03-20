@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+void	print_line(char *line, char *limiter, int fd)
+{
+	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
+		exit(0);
+	write(1, "> ", 2);
+	write(fd, line, ft_strlen(line));
+	write(fd, "\n", 1);
+}
+
 char	*sum(char *line, char buf)
 {
 	int		size;
@@ -34,13 +43,21 @@ char	*sum(char *line, char buf)
 	return (str);
 }
 
-void	print_line(char *line, char *limiter, int fd)
+void	handle_heredoc(t_list *token)
 {
-	if (ft_strncmp(line, limiter, ft_strlen(limiter)) == 0)
-		exit(0);
-	write(1, "> ", 2);
-	write(fd, line, ft_strlen(line));
-	write(fd, "\n", 1);
+	int	org_stdin;
+
+	org_stdin = dup(STDIN_FILENO);
+	while (token)
+	{
+		if (strncmp(token->content, "<<", 3) == 0)
+		{
+			dup2(org_stdin, STDIN_FILENO);
+			heredoc(token->next->content);
+			token = token->next;
+		}
+		token = token->next;
+	}
 }
 
 int	heredoc(char *limiter)
@@ -70,21 +87,4 @@ int	heredoc(char *limiter)
 	else
 		return (error_msg("fork"));
 	return (TRUE);
-}
-
-void	handle_heredoc(t_list *token)
-{
-	int	org_stdin;
-
-	org_stdin = dup(STDIN_FILENO);
-	while (token)
-	{
-		if (strncmp(token->content, "<<", 3) == 0)
-		{
-			dup2(org_stdin, STDIN_FILENO);
-			heredoc(token->next->content);
-			token = token->next;
-		}
-		token = token->next;
-	}
 }

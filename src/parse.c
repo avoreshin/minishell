@@ -107,7 +107,7 @@ int	parse_last_process(t_proc *proc, t_env *env, char **envp)
 
 int	parse_pipe_token(t_list *token, t_env *env, char **envp)
 {
-	char	*temp;
+	char	*tmp;
 	t_proc	proc;
 
 	ft_memset(&proc, 0, sizeof(t_proc));
@@ -115,10 +115,10 @@ int	parse_pipe_token(t_list *token, t_env *env, char **envp)
 	{
 		if (token->content[0] != '|')
 		{
-			temp = ft_strdup(token->content);
-			if (!temp)
+			tmp = ft_strdup(token->content);
+			if (!tmp)
 				return (error_msg("malloc"));
-			ft_lstadd_back(&proc.data, ft_lstnew(temp));
+			ft_lstadd_back(&proc.data, ft_lstnew(tmp));
 		}
 		if (token->content[0] == '|')
 		{

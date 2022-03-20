@@ -69,6 +69,21 @@ void	*ft_free2(char **p)
 	return (NULL);
 }
 
+char	*ft_strndup(char *s, int n)
+{
+	char	*temp;
+	int		i;
+
+	temp = (char *)malloc(sizeof(char) * (n + 1));
+	if (!temp)
+		return (NULL);
+	i = -1;
+	while (s[++i] && i < n)
+		temp[i] = s[i];
+	temp[i] = 0;
+	return (temp);
+}
+
 char	*ft_strntrim(char *s, char *set, int n)
 {
 	char	*temp;
@@ -85,19 +100,4 @@ char	*ft_strntrim(char *s, char *set, int n)
 	temp2 = ft_strtrim(temp, set);
 	ft_free(temp);
 	return (temp2);
-}
-
-char	*ft_strndup(char *s, int n)
-{
-	char	*temp;
-	int		i;
-
-	temp = (char *)malloc(sizeof(char) * (n + 1));
-	if (!temp)
-		return (NULL);
-	i = -1;
-	while (s[++i] && i < n)
-		temp[i] = s[i];
-	temp[i] = 0;
-	return (temp);
 }

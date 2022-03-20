@@ -14,56 +14,20 @@
 
 char	*my_strtrim(char *data, int start, int end)
 {
-	char	*temp;
+	char	*tmp;
 	int		i;
 	int		j;
 
-	temp = (char *)malloc(sizeof(char) * end);
-	if (!temp)
+	tmp = (char *)malloc(sizeof(char) * end);
+	if (!tmp)
 		return (NULL);
 	i = -1;
 	j = 0;
 	while (data[++i] && i < end)
 		if (i != start)
-			temp[j++] = data[i];
-	temp[j] = 0;
-	return (temp);
-}
-
-int	find_valid_env_var_point(char *data)
-{
-	int	find;
-
-	if (data[0] == '?')
-		return (1);
-	find = 0;
-	while (data[find] && (ft_isalnum(data[find]) || data[find] == '_'))
-		find++;
-	return (find);
-}
-
-int	find_env_var_token(char *data, int start, int end)
-{
-	int	find;
-
-	find = start + 1;
-	while (data[find] && find < end && data[find] != '$')
-		find++;
-	if (find == end)
-		return (FALSE);
-	return (TRUE);
-}
-
-int	find_valid_quot_point(char *data, int start)
-{
-	int	find;
-
-	find = start + 1;
-	while (data[find] && data[start] != data[find])
-		find++;
-	if (data[find])
-		return (find);
-	return (start);
+			tmp[j++] = data[i];
+	tmp[j] = 0;
+	return (tmp);
 }
 
 int	check_token(t_list *token)
@@ -93,4 +57,40 @@ int	check_token(t_list *token)
 		token = token->next;
 	}
 	return (TRUE);
+}
+
+int	find_env_var_token(char *data, int start, int end)
+{
+	int	find;
+
+	find = start + 1;
+	while (data[find] && find < end && data[find] != '$')
+		find++;
+	if (find == end)
+		return (FALSE);
+	return (TRUE);
+}
+
+int	find_valid_env_var_point(char *data)
+{
+	int	find;
+
+	if (data[0] == '?')
+		return (1);
+	find = 0;
+	while (data[find] && (ft_isalnum(data[find]) || data[find] == '_'))
+		find++;
+	return (find);
+}
+
+int	find_valid_quot_point(char *data, int start)
+{
+	int	find;
+
+	find = start + 1;
+	while (data[find] && data[start] != data[find])
+		find++;
+	if (data[find])
+		return (find);
+	return (start);
 }

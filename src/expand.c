@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-char	*del_small_quot_token(char *data, int start, char **new_data)
-{
-	char	*org_data;
-	char	*temp;
-	int		end;
-
-	org_data = *new_data;
-	temp = NULL;
-	end = find_valid_quot_point(data, start);
-	temp = my_strtrim(data, start, end);
-	if (!temp)
-		return (NULL);
-	*new_data = ft_strjoin(*new_data, temp);
-	ft_free(org_data);
-	ft_free(temp);
-	if (!(*new_data))
-		return (NULL);
-	data = &data[end + 1];
-	return (data);
-}
-
 char	*expand_env_var(t_proc *proc, char *data, int start, char **new_data)
 {
 	char	*get_env;
@@ -85,30 +64,6 @@ char	*expand_in_quot_env_var(t_proc *proc, char *data, int start, int end)
 	return (new_data);
 }
 
-char	*del_big_quot(t_proc *proc, char *data, int start, char **new_data)
-{
-	char	*org_data;
-	char	*temp;
-	int		end;
-
-	org_data = *new_data;
-	temp = NULL;
-	end = find_valid_quot_point(data, start);
-	if (find_env_var_token(data, start, end) == TRUE)
-		temp = expand_in_quot_env_var(proc, data, start, end);
-	else
-		temp = my_strtrim(data, start, end);
-	if (!temp)
-		return (ft_free(org_data));
-	*new_data = ft_strjoin(*new_data, temp);
-	ft_free(org_data);
-	ft_free(temp);
-	if (!(*new_data))
-		return (NULL);
-	data = &data[end + 1];
-	return (data);
-}
-
 char	*expand_data(t_proc *proc, char *data)
 {
 	char	*new_data;
@@ -135,4 +90,49 @@ char	*expand_data(t_proc *proc, char *data)
 	new_data = ft_strjoin(new_data, data);
 	ft_free(temp);
 	return (new_data);
+}
+
+char	*del_big_quot(t_proc *proc, char *data, int start, char **new_data)
+{
+	char	*org_data;
+	char	*temp;
+	int		end;
+
+	org_data = *new_data;
+	temp = NULL;
+	end = find_valid_quot_point(data, start);
+	if (find_env_var_token(data, start, end) == TRUE)
+		temp = expand_in_quot_env_var(proc, data, start, end);
+	else
+		temp = my_strtrim(data, start, end);
+	if (!temp)
+		return (ft_free(org_data));
+	*new_data = ft_strjoin(*new_data, temp);
+	ft_free(org_data);
+	ft_free(temp);
+	if (!(*new_data))
+		return (NULL);
+	data = &data[end + 1];
+	return (data);
+}
+
+char	*del_small_quot_token(char *data, int start, char **new_data)
+{
+	char	*org_data;
+	char	*temp;
+	int		end;
+
+	org_data = *new_data;
+	temp = NULL;
+	end = find_valid_quot_point(data, start);
+	temp = my_strtrim(data, start, end);
+	if (!temp)
+		return (NULL);
+	*new_data = ft_strjoin(*new_data, temp);
+	ft_free(org_data);
+	ft_free(temp);
+	if (!(*new_data))
+		return (NULL);
+	data = &data[end + 1];
+	return (data);
 }
