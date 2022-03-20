@@ -12,9 +12,38 @@
 
 #include "minishell.h"
 
+void	ft_unset(char **dbuf, t_env **env_list)
+{
+	int		i;
+	t_env	**pp;
+	t_env	*del;
+
+	i = -1;
+	while (dbuf[++i])
+	{
+		if (!unset_key_syntax_check(dbuf[i]))
+			continue ;
+		pp = env_list;
+		while (*pp)
+		{
+			if (!ft_strcmp(dbuf[i], (*pp)->key))
+			{
+				del = *pp;
+				*pp = ((*pp)->next);
+				free(del->key);
+				free(del->value);
+				free(del);
+			}
+			if (*pp)
+				pp = &(*pp)->next;
+		}
+	}
+	g_stat = 0;
+}
+
 void	ft_cd(char **buf, t_env *env_list)
 {
-	int	err;
+	int	error;
 	int	temp;
 
 	if (!buf[0])
@@ -26,9 +55,9 @@ void	ft_cd(char **buf, t_env *env_list)
 	temp = chdir(buf[0]);
 	if (temp < 0)
 	{
-		err = errno;
-		cd_error(err, buf[0]);
-		g_stat = err;
+		error = errno;
+		cd_error(error, buf[0]);
+		g_stat = error;
 		return ;
 	}
 	g_stat = 0;
@@ -76,31 +105,14 @@ int	unset_key_syntax_check(char *s)
 	return (1);
 }
 
-void	ft_unset(char **dbuf, t_env **env_list)
+void	cd_error(int err, char *arg)
 {
-	int		i;
-	t_env	**pp;
-	t_env	*del;
+	char	*errmsg;
 
-	i = -1;
-	while (dbuf[++i])
-	{
-		if (!unset_key_syntax_check(dbuf[i]))
-			continue ;
-		pp = env_list;
-		while (*pp)
-		{
-			if (!ft_strcmp(dbuf[i], (*pp)->key))
-			{
-				del = *pp;
-				*pp = ((*pp)->next);
-				free(del->key);
-				free(del->value);
-				free(del);
-			}
-			if (*pp)
-				pp = &(*pp)->next;
-		}
-	}
-	g_stat = 0;
+	errmsg = strerror(err);
+	write(2, "bash: cd: ", 10);
+	write(2, arg, ft_strlen(arg));
+	write(2, ": ", 2);
+	write(2, errmsg, ft_strlen(errmsg));
+	write(2, "\n", 1);
 }
