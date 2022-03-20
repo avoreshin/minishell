@@ -30,7 +30,7 @@ char	**convert_env_lst_to_dp(t_env *env)
 	int		len;
 	char	**envp;
 	char	*join_env;
-	char	*temp;
+	char	*tmp;
 	int		i;
 
 	len = ft_env_lstsize(env);
@@ -39,9 +39,9 @@ char	**convert_env_lst_to_dp(t_env *env)
 	i = 0;
 	while (len--)
 	{
-		temp = ft_strjoin(env->key, "=");
-		join_env = ft_strjoin(temp, env->value);
-		free(temp);
+		tmp = ft_strjoin(env->key, "=");
+		join_env = ft_strjoin(tmp, env->value);
+		free(tmp);
 		envp[i++] = join_env;
 		env = env->next;
 	}
