@@ -12,6 +12,17 @@
 
 #include "minishell.h"
 
+int	exit_numeric_arg_cal(char *arg)
+{
+	int		res;
+
+	res = ft_atoi(arg);
+	if (res >= 0 && res < 255)
+		return (res);
+	else
+		return (255);
+}
+
 int	valid_exit_arg(char	*arg)
 {
 	int	i;
@@ -27,17 +38,6 @@ int	valid_exit_arg(char	*arg)
 			return (0);
 	}
 	return (1);
-}
-
-int	exit_numeric_arg_cal(char *arg)
-{
-	int		res;
-
-	res = ft_atoi(arg);
-	if (res >= 0 && res < 255)
-		return (res);
-	else
-		return (255);
 }
 
 void	exit_extra_cases(int c, char *s)
