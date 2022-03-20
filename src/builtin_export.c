@@ -39,18 +39,6 @@ int	export_key_syntax_check(char *s)
 	return (1);
 }
 
-void	reset_env_print_check(t_env *env_list)
-{
-	t_env	*i;
-
-	i = env_list;
-	while (i)
-	{
-		i->print_check = 0;
-		i = i->next;
-	}
-}
-
 void	print_env_in_order(t_env *env_list)
 {
 	t_env	*i;
@@ -103,4 +91,16 @@ void	ft_export(char **dbuf, t_env *env_list, char **splits, t_env *temp)
 		free(splits);
 	}
 	g_stat = 0;
+}
+
+void	reset_env_print_check(t_env *env_list)
+{
+	t_env	*i;
+
+	i = env_list;
+	while (i)
+	{
+		i->print_check = 0;
+		i = i->next;
+	}
 }
